@@ -1,17 +1,46 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
+// style
+import * as S from './style'
+import * as Icon from './Ui/index'
+
 import Editor from './Components/Editor';
 
 function App() {
+  // valor inicial
   let srcDoc = `
+ 
   <html>
-  <body>AAAAAA</body>
+  <head><style type='text/css'>h1{
+font-size: 1em;
+color: red;
+margin: 0;
+}
+#Container{
+display: flex;
+justify-content: center;
+flex-direction: column;
+align-items: center;
+height: 100%;
+align-self: center;
+}
+p{
+margin: 0;
+}</style><head/>
+  <body><div id="Container">
+<h1> Welcome To the Code Editor</h1>
+  <p> you will see all your changes here</p>
+<div/><script>undefined</script></body>
   </html>
   `
-  const [html, setHtml] = useState()
+type CodeStates = string | undefined
+
+  const [html, setHtml] = useState<CodeStates>()
   const [Css, setCss] = useState()
   const [js, setJs] = useState()
 
   const [Code, setCode] = useState(srcDoc)
+
+  const [checked, setChecked] = useState(false);
 
   
 function checar(){
@@ -21,14 +50,37 @@ function checar(){
   <body>${html}<script>${js}</script></body>
   </html>
   `
+  console.log(srcDoc)
   setCode(srcDoc)
 }
+
+// use effect pra o auto build
+useEffect(() => {
+ if(checked === true){
+  const timeout = setTimeout(() => {
+   
+   // eslint-disable-next-line react-hooks/exhaustive-deps
+   srcDoc = `
+   <html>
+   <head><style type='text/css'>${Css}</style><head/>
+   <body>${html}<script>${js}</script></body>
+   </html>
+   `
+   
+   setCode(srcDoc)
+    }, 1950);
+    return () => clearTimeout(timeout);
+ }
+}, [js, html, Css, checked])
+
   return (
     <div className="App">
-      <Editor Mode={"xml"} code={html} setHtml={setHtml}></Editor>
-      <Editor Mode={"css"} code={Css} setHtml={setCss}></Editor>
-      <Editor Mode={"javascript"} code={js} setHtml={setJs}></Editor>
-
+      <S.EditorWrapper>
+        <Editor Mode={"xml"} code={html} setHtml={setHtml}></Editor>
+        <Editor Mode={"css"} code={Css} setHtml={setCss}></Editor>
+        <Editor Mode={"javascript"} code={js} setHtml={setJs}></Editor>
+      </S.EditorWrapper>
+      <S.IframeWrapper>
       <iframe
         title="CodeRunner"
         srcDoc={Code}
@@ -38,8 +90,17 @@ function checar(){
       /*width-height option*/
       /*Title option*/
       ></iframe>
-
-      <button onClick={checar}>Run</button>
+       </S.IframeWrapper>
+       <S.ButtonWrapp>
+        <label>
+      <input type="checkbox"
+        defaultChecked={checked}
+        onChange={() => setChecked(!checked)}
+      />
+      Auto-Runner
+    </label>
+      <S.Button onClick={checar}> <Icon.Build></Icon.Build> Build </S.Button>
+      </S.ButtonWrapp>
     </div>
   );
 }
