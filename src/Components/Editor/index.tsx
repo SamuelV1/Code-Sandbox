@@ -1,5 +1,6 @@
 import React from 'react'
 // styles
+import * as S from './style' 
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/material.css";
 
@@ -8,8 +9,8 @@ require('codemirror/mode/xml/xml');
 require('codemirror/mode/javascript/javascript');
 require('codemirror/mode/css/css')
 
-// e so montar um html usando o src doc e meus inputs
-// usar callback para mandar o valor de volta
+
+// agora e estilizar e fazer o botão de build
 type editor = {
   setHtml: any,
   code: any,
@@ -21,7 +22,8 @@ export default function Editor({code, setHtml, ...props}: editor) {
 
   
     return (
-        <div>
+        <S.EditorContainer>
+          <S.Label>{props.Mode}</S.Label>
             <CodeMirror
   value={code}
  options={{
@@ -35,6 +37,6 @@ export default function Editor({code, setHtml, ...props}: editor) {
   onChange={(editor, data, value) => {
   }}
 />
-        </div>
+        </S.EditorContainer>
     )
 }
