@@ -76,9 +76,9 @@ useEffect(() => {
   return (
     <div className="App">
       <S.EditorWrapper>
-        <Editor Mode={"xml"} code={html} setHtml={setHtml}></Editor>
-        <Editor Mode={"css"} code={Css} setHtml={setCss}></Editor>
-        <Editor Mode={"javascript"} code={js} setHtml={setJs}></Editor>
+        <Editor Mode={"xml"} Label="HTML" code={html} setHtml={setHtml}></Editor>
+        <Editor Mode={"css"} Label="CSS" code={Css} setHtml={setCss}></Editor>
+        <Editor Mode={"javascript"} Label="JS" code={js} setHtml={setJs}></Editor>
       </S.EditorWrapper>
       <S.IframeWrapper>
       <iframe
