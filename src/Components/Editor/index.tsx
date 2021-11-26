@@ -14,8 +14,8 @@ require('codemirror/mode/css/css')
 type editor = {
   setHtml: any,
   code: any,
-  Mode: string
-
+  Mode: string,
+  Label: string
 }
 
 export default function Editor({code, setHtml, ...props}: editor) {
@@ -23,7 +23,7 @@ export default function Editor({code, setHtml, ...props}: editor) {
   
     return (
         <S.EditorContainer>
-          <S.Label>{props.Mode}</S.Label>
+          <S.Label>{props.Label}</S.Label>
             <CodeMirror
   value={code}
  options={{
