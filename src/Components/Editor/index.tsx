@@ -9,17 +9,17 @@ require('codemirror/mode/xml/xml');
 require('codemirror/mode/javascript/javascript');
 require('codemirror/mode/css/css')
 
+type CodeStates = string 
 
 // agora e estilizar e fazer o botão de build
 type editor = {
-  setHtml: any,
-  code: any,
+  setHtml: (value: string | ((prevVar: string) => string)) => void;
+  code: CodeStates,
   Mode: string,
   Label: string
 }
 
 export default function Editor({code, setHtml, ...props}: editor) {
-
   
     return (
         <S.EditorContainer>

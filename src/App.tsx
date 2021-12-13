@@ -32,11 +32,11 @@ margin: 0;
 <div/><script>undefined</script></body>
   </html>
   `
-type CodeStates = string | undefined
+type CodeStates = string 
 
-  const [html, setHtml] = useState<CodeStates>()
-  const [Css, setCss] = useState()
-  const [js, setJs] = useState()
+  const [html, setHtml] = useState<CodeStates>("<!-- Edit Html here -->")
+  const [Css, setCss] = useState<CodeStates>("/* Edit css here */")
+  const [js, setJs] = useState<CodeStates>("// edit Javascript Here")
 
   const [Code, setCode] = useState(srcDoc)
 
